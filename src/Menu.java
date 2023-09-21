@@ -1,4 +1,5 @@
 public class Menu {
+    // {"id", "name", "price"}
     String[][] menu = {
             {"0", "Spicy McCrispy", "4.79"},
             {"1", "Big Mac", "5.58"},
