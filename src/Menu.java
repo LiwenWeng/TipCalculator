@@ -9,19 +9,10 @@ public class Menu {
             {"6", "Medium Iced Coffee", "1.79"},
     };
 
-    double getPrice(int foodId) {
-        for (String[] strings : menu) {
-            if (strings[0].equals(String.valueOf(foodId))) {
-                return Double.parseDouble(strings[2]);
-            }
-        }
-        return 0;
-    }
-
-    double getPrice(String foodName) {
-        for (String[] strings : menu) {
-            if (strings[1].equals(foodName)) {
-                return Double.parseDouble(strings[2]);
+    double getPrice(String foodId) {
+        for (String[] food : menu) {
+            if (food[0].equals(foodId)) {
+                return Double.parseDouble(food[2]);
             }
         }
         return 0;

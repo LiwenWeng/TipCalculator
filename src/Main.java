@@ -3,5 +3,6 @@ public class Main {
         Menu menu = new Menu();
 
         menu.printMenu();
+        System.out.println(menu.getPrice("1"));
     }
 }
