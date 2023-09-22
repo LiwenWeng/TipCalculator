@@ -9,7 +9,7 @@ public class Main {
         String input = "";
 
         // Main Program
-        menuScreen(input, scan, false);
+        menuScreen(input, scan, menu);
     }
 
     static void clearScreen() {
@@ -18,34 +18,28 @@ public class Main {
         }
     }
 
-    static void menuScreen(String input, Scanner scan, boolean invalidInput) {
+    static void menuScreen(String input, Scanner scan, Menu menu) {
         clearScreen();
         while (true) {
-            System.out.println("Waiter: " + ((invalidInput) ?
-                    "Sorry, I didn't understand. Please say it again." :
-                    "Welcome to McDonald's! How can I help you?"));
             System.out.println("[1]: Order");
-            System.out.println("[2]: Leave");
-            System.out.print("> ");
+            System.out.println("[2]: Leave\n");
+            System.out.print("Waiter: " + ((input.equals("-1")) ?
+                    "Sorry, I didn't understand. Please say it again: " :
+                    "Welcome to McDonald's! How can I help you? "));
             input = scan.nextLine();
 
             switch (input) {
                 case "1":
-                    orderFood();
+                    String order = "";
+                    menu.orderFood(order, scan, menu);
                     return;
                 case "2":
                     System.out.println("Waiter: Have a great day!");
                     return;
                 default:
-                    menuScreen("2", scan, true);
+                    menuScreen("-1", scan, menu);
                     return;
             }
         }
-    }
-
-    static void orderFood() {
-        clearScreen();
-        System.out.println("test");
-
     }
 }
