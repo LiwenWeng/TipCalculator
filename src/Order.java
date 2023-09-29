@@ -1,10 +1,9 @@
-import java.sql.SQLOutput;
 import java.util.ArrayList;
-import java.util.Map;
 import java.util.Scanner;
 import java.util.Arrays;
 
 public class Order {
+    private String name;
     private int numberOfPeople;
     private int totalNumberOfItems;
     private double totalCost = 0;
@@ -18,6 +17,9 @@ public class Order {
         double itemCost;
 
         if (order.equals("first")) {
+            System.out.print("Waiter: What is your name? ");
+            name = scan.nextLine();
+
             System.out.print("Waiter: How many people are in your group? ");
             numberOfPeople = scan.nextInt();
             scan.nextLine();
@@ -47,7 +49,7 @@ public class Order {
                 totalCost += itemCost * numberOfItems;
 
                 totalNumberOfItems += numberOfItems;
-                items.add(new String[]{itemName, String.format("%.2f", itemCost * numberOfItems)});
+                items.add(new String[]{itemName, String.format("%.2f", itemCost * numberOfItems), Integer.toString(numberOfItems)});
                 orderFood("true", scan, menu);
                 return;
 
@@ -69,7 +71,8 @@ public class Order {
                 }
 
                 System.out.println("\nWaiter: Here is your receipt and food. Enjoy the rest of your day!");
-                // receipt
+                Receipt receipt = new Receipt(name, items, totalCost, tipPercentage, numberOfPeople);
+                System.out.println(receipt.getReceipt());
                 return;
 
             } else if (order.equals("-2")) {
@@ -82,7 +85,8 @@ public class Order {
                 scan.nextLine();
 
                 totalNumberOfItems += numberOfItems;
-                items.add(new String[]{menu.getName(order), String.format("%.2f", price * numberOfItems)});
+                totalCost += price * numberOfItems;
+                items.add(new String[]{menu.getName(order), String.format("%.2f", price * numberOfItems), Integer.toString(numberOfItems)});
                 orderFood("true", scan, menu);
                 return;
 
