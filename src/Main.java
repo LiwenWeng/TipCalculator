@@ -8,7 +8,7 @@ public class Main {
 
         String input = "";
 
-        while (true) {
+        while (!input.equals("2")) {
             clearScreen();
             System.out.println("[1]: Order");
             System.out.println("[2]: Leave\n");
@@ -21,11 +21,11 @@ public class Main {
             switch (input) {
                 case "1":
                     order.orderFood("first", scanner, menu);
-                    return;
+                    break;
 
                 case "2":
                     System.out.println("Waiter: Bye, have a great day!");
-                    return;
+                    break;
 
                 default:
                     input = "invalid";
@@ -34,7 +34,7 @@ public class Main {
     }
 
     public static void clearScreen() {
-        for (int i = 0; i < 25; i++) {
+        for (int i = 0; i < 40; i++) {
             System.out.println();
         }
     }

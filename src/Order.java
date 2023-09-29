@@ -5,17 +5,17 @@ import java.util.Arrays;
 public class Order {
     private String name;
     private int numberOfPeople;
-    private int totalNumberOfItems;
     private double totalCost = 0;
     private int tipPercentage;
     private ArrayList<String[]> items = new ArrayList<>();
 
-    void orderFood(String order, Scanner scan, Menu menu) {
+    public void orderFood(String order, Scanner scan, Menu menu) {
         Main.clearScreen();
         int numberOfItems;
         String itemName;
         double itemCost;
 
+        // Check if this is right after they pick order in the menu screen
         if (order.equals("first")) {
             System.out.print("Waiter: What is your name? ");
             name = scan.nextLine();
@@ -35,6 +35,7 @@ public class Order {
 
             double price = menu.getPrice(order);
 
+            // Custom order option
             if (order.equals("7")) {
                 System.out.print("Waiter: What is the name of the item? ");
                 itemName = scan.nextLine();
@@ -48,11 +49,11 @@ public class Order {
                 scan.nextLine();
                 totalCost += itemCost * numberOfItems;
 
-                totalNumberOfItems += numberOfItems;
                 items.add(new String[]{itemName, String.format("%.2f", itemCost * numberOfItems), Integer.toString(numberOfItems)});
                 orderFood("true", scan, menu);
-                return;
+                break;
 
+            // User finished ordering
             } else if (order.equals("-1")) {
                 Main.clearScreen();
                 System.out.println("Waiter: Alright! Tip will be much appreciated! :D");
@@ -70,29 +71,33 @@ public class Order {
                     System.out.println("Waiter: Are you serious?! Thank you so much! I really appreciate you! <3");
                 }
 
-                System.out.println("\nWaiter: Here is your receipt and food. Enjoy the rest of your day!");
+                // Receipt
+                System.out.println("\nWaiter: Here is your receipt and food. Enjoy the rest of your day!\n");
                 Receipt receipt = new Receipt(name, items, totalCost, tipPercentage, numberOfPeople);
                 System.out.println(receipt.getReceipt());
-                return;
+                scan.nextLine();
+                break;
 
+            // Leave option
             } else if (order.equals("-2")) {
                 System.out.println("Waiter: Bye, have a great day!");
                 return;
 
+            // User picks from the default menu
             } else if (Arrays.asList(new String[]{"0", "1", "2", "3", "4", "5", "6"}).contains(order)) {
                 System.out.print("Waiter: How many do you want to order? ");
                 numberOfItems = scan.nextInt();
                 scan.nextLine();
 
-                totalNumberOfItems += numberOfItems;
                 totalCost += price * numberOfItems;
                 items.add(new String[]{menu.getName(order), String.format("%.2f", price * numberOfItems), Integer.toString(numberOfItems)});
                 orderFood("true", scan, menu);
-                return;
+                break;
 
+            // User inputs something else
             } else {
                 orderFood("false", scan, menu);
-                return;
+                break;
             }
         }
     }

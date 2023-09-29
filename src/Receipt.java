@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
 
 public class Receipt {
     private double totalCostBeforeTip;
@@ -12,7 +14,7 @@ public class Receipt {
     String name;
     private ArrayList<String[]> items;
 
-    Receipt(String name, ArrayList<String[]> items, double totalCostBeforeTip, int tipPercentage, int numberOfPeople) {
+    public Receipt(String name, ArrayList<String[]> items, double totalCostBeforeTip, int tipPercentage, int numberOfPeople) {
         this.name = name;
         this.items = items;
 
@@ -37,7 +39,13 @@ public class Receipt {
         return stringBuilder.toString();
     }
 
-    String getReceipt() {
+    private String getTime() {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("EE      MM/dd/yy      HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+        return dtf.format(now);
+    }
+
+    public String getReceipt() {
         return String.format("""     
           MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM 
                       
@@ -46,9 +54,11 @@ public class Receipt {
                  Telp. (718) 230-0176       
                                             
            * * * * * * * * * * * * * * * *  
+           
                      CASH RECEIPT           
            %1$s                           
-           WED       09/13/23      06:04pm  
+           %11$s 
+           
            * * * * * * * * * * * * * * * *  
            %2$s
            * * * * * * * * * * * * * * * *  
@@ -77,6 +87,7 @@ public class Receipt {
                 totalCostWithTip,
                 costPerPersonBeforeTip,
                 tipPerPerson,
-                totalCostPerPerson);
+                totalCostPerPerson,
+                getTime());
     }
 }
